@@ -77,7 +77,25 @@
         
         .card-hover:hover {
             transform: translateY(-5px);
+        }/* === 🟢 新增：夜晚模式字体自动适配补丁 🟢 === */
+        body.dark .text-gray-800,
+        body.dark .text-gray-900,
+        body.dark .text-gray-700,
+        body.dark h1, body.dark h2, body.dark h3, body.dark h4 {
+            color: #f1f5f9 !important;  /* 浅白灰色 */
         }
+        
+        body.dark .text-gray-500,
+        body.dark .text-gray-600 {
+            color: #cbd5e1 !important;  /* 较浅的灰色，用于副标题 */
+        }
+        
+        /* 确保联系信息区域在暗模式下的文字为白色 */
+        body.dark .bg-white\/80,
+        body.dark .bg-white\/90 {
+            color: #f1f5f9 !important;
+        }
+        /* === 补丁结束 === */
     </style>
 </head>
 <body class="relative font-sans text-gray-800 dark:text-white transition-custom">
