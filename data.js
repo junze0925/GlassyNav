@@ -8,10 +8,27 @@ function initData() {
     // 检查是否有存储的数据，如果没有则创建默认数据
     if (!localStorage.getItem('navigationData')) {
         const defaultData = {
-            // 网站分类和链接
+            // 网站分类和链接（所有分类统一归这里管理！）
             categories: [
                 {
                     id: '1',
+                    name: '快速访问',
+                    icon: 'fa-rocket',
+                    links: [
+                        { id: 'quick_1', name: 'Google', url: 'https://www.google.com', icon: 'fa-google' },
+                        { id: 'quick_2', name: 'GitHub', url: 'https://github.com', icon: 'fa-github' },
+                        { id: 'quick_3', name: '微信', url: 'https://weixin.qq.com', icon: 'fa-weixin' },
+                        { id: 'quick_4', name: 'QQ', url: 'https://qq.com', icon: 'fa-qq' }
+                    ]
+                },
+                {
+                    id: '2',
+                    name: '常用网站',
+                    icon: 'fa-link',
+                    links: []
+                },
+                {
+                    id: '3',
                     name: '源码网站',
                     icon: 'fa-code',
                     links: [
@@ -34,23 +51,8 @@ function initData() {
                             favicon: 'http://ale.leleyangyang.top:8991/wp-content/uploads/2022/06/1654508894-20b056292128543.png'
                         }
                     ]
-                },
-                {
-                    id: '2',
-                    name: '工具网站',
-                    icon: 'fa-wrench',
-                    links: []
-                },
-                {
-                    id: '3',
-                    name: '资源下载',
-                    icon: 'fa-download',
-                    links: []
                 }
             ],
-            
-            // 快速访问链接
-            quickLinks: [],
             
             // 联系信息
             contactInfo: {
@@ -103,7 +105,6 @@ function saveCategories(categories) {
 // 添加分类
 function addCategory(category) {
     const categories = getCategories();
-    // 确保有唯一ID
     category.id = Date.now().toString();
     category.links = category.links || [];
     categories.push(category);
@@ -135,7 +136,6 @@ function addLink(categoryId, link) {
     const categories = getCategories();
     const category = categories.find(c => c.id === categoryId);
     if (category) {
-        // 确保有唯一ID
         link.id = Date.now().toString();
         category.links.push(link);
         saveCategories(categories);
@@ -248,7 +248,6 @@ function importData(file) {
         reader.onload = function(event) {
             try {
                 const data = JSON.parse(event.target.result);
-                // 验证数据结构
                 if (data.categories && Array.isArray(data.categories)) {
                     saveAllData(data);
                     resolve(true);
@@ -266,7 +265,6 @@ function importData(file) {
 
 // 登录验证函数
 function verifyLogin(username, password) {
-    // 默认账号密码
     const ADMIN_USERNAME = 'admin';
     const ADMIN_PASSWORD = 'admin123';
     return username === ADMIN_USERNAME && password === ADMIN_PASSWORD;
