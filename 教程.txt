@@ -1,0 +1,68 @@
+解压密码 ：ale.leleyangyang.top:9983
+本站唯一网站：阿乐源码网
+网址：http://ale.leleyangyang.top:9983/
+联系qq 3180155362 
+
+登陆ssh 界面执行以下命令即可更换 yum 源为 CentOS 的 Vault 源(包括 CentOS 官方和阿里云的源)
+
+本文隐藏内容
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://file.kangle.cccyun.cn/repo/Centos-7.repo
+yum makecache
+或者执行下面这条命令也行
+
+本文隐藏内容
+curl -o /etc/yum.repos.d/CentOS-Base.repo http://file.kangle.cccyun.cn/repo/Centos-7.repo
+yum makecache
+
+yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh
+
+
+
+
+ 【
+
+ 【云服务器】请在安全组放行 33473 端口
+ 外网ipv4面板地址: https://42.230.47.205:33473/2d606d24
+ 内网面板地址:     https://192.168.241.128:33473/2d606d24
+ username: p7nf7kyj
+ password: f0837534
+
+ 浏览器访问以下链接，添加宝塔客服
+ https://www.bt.cn/new/wechat_customer
+
+
+
+
+
+
+
+
+免费分享 微信小程序一键生成系统 源码以及搭建教程
+喜欢的话给个三连加关注
+链接在主页
+
+
+
+==================================================================
+1.安装宝塔
+if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_panel.sh;else wget -O install_panel.sh https://download.bt.cn/install/install_panel.sh;fi;bash install_panel.sh ed8484bec
+php7.3  admin admin123
+
+
+本站唯一网站：阿乐源码网
+网址：http://ale.leleyangyang.top:9983/
+
+联系qq 3180155362 
+
+想做游戏代理
+或者做游戏方面的联系 微信 17656217616
+想创业 开成人用品的联系我 微信 17656217616
+
+阿乐源码网3180155362
+阿乐源码网4群号472934321
+阿乐源码网5群号751772431
+阿乐源码网6群号863355041
+
+腾讯服务器优惠新用户7折优惠 老用户88折优惠链接
+https://partner.cloud.tencent.com/invitation/316656189255ac6a2b86868/100032716291
+

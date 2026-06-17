@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>导航首页</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 数据管理脚本 -->
+    <script src="data.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#10b981',
+                        accent: '#8b5cf6',
+                        dark: '#1f2937',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .backdrop-blur-md {
+                backdrop-filter: blur(12px);
+            }
+            .card-shadow {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            .card-hover {
+                transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            }
+            .card-hover:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .search-focus {
+                @apply ring-2 ring-primary ring-opacity-50;
+            }
+        }
+    </style>
+    <style>
+        body {
+            background: url('static/image/bjt.png') no-repeat center center/cover;
+            transition: background 0.5s ease;
+            min-height: 100vh;
+        }
+        
+        /* 夜晚模式蒙版 */
+        body.dark::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        
+        /* 卡片悬停效果 */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="relative font-sans text-gray-800 dark:text-white transition-custom">
+    <!-- 顶部导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 px-4 py-3 backdrop-blur-md bg-white/70 dark:bg-gray-900/70 transition-custom">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa fa-compass text-primary text-2xl"></i>
+                <h1 class="text-xl font-bold">导航首页</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-custom">
+                    <i class="fa fa-moon-o dark:hidden text-xl"></i>
+                    <i class="fa fa-sun-o hidden dark:block text-xl"></i>
+                </button>
+                <button id="search-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-custom">
+                    <i class="fa fa-search text-xl"></i>
+                </button>
+                <a href="admin.html" class="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-custom">
+                    <i class="fa fa-cog"></i>
+                    <span>管理</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 搜索框 -->
+    <div id="search-container" class="fixed top-16 left-0 right-0 z-40 container mx-auto px-4 hidden">
+        <div class="relative">
+            <input type="text" id="search-input" placeholder="搜索链接..." class="w-full py-3 px-5 pr-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary/50">
+            <button id="search-btn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
+                <i class="fa fa-search text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 pt-32 pb-20">
+        <!-- 欢迎区域 -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-3" id="greeting">早上好，欢迎回来</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300" id="date-display">2023年1月1日 星期日</p>
+        </div>
+
+        <!-- 快速访问 -->
+        <div class="mb-10">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">快速访问</h2>
+                <button class="text-primary hover:text-primary/80 transition-custom flex items-center gap-1">
+                    <span>查看全部</span>
+                    <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
+                    <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-3">
+                        <i class="fa fa-google text-blue-500 text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">Google</span>
+                </div>
+                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
+                    <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center mb-3">
+                        <i class="fa fa-youtube-play text-red-500 text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">YouTube</span>
+                </div>
+                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
+                    <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mb-3">
+                        <i class="fa fa-weixin text-green-500 text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">微信</span>
+                </div>
+                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
+                    <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mb-3">
+                        <i class="fa fa-github text-purple-500 text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">GitHub</span>
+                </div>
+                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
+                    <div class="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center mb-3">
+                        <i class="fa fa-qq text-orange-500 text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">QQ</span>
+                </div>
+                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
+                    <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-3">
+                        <i class="fa fa-plus text-gray-500 text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">添加</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 网站分类 -->
+        <div class="mb-10">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">常用网站</h2>
+                <button class="text-primary hover:text-primary/80 transition-custom flex items-center gap-1">
+                    <span>管理</span>
+                    <i class="fa fa-pencil"></i>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="website-list">
+                <!-- 网站卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
+        <!-- 联系信息 -->
+        <div class="mb-10">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">联系我们</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 微信 -->
+                <div class="card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:shadow-xl transition-custom">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                            <img src="static/picture/wx.png" alt="微信Logo" class="w-8 h-8">
+                        </div>
+                        <h3 class="text-xl font-bold">客服微信</h3>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="copyText('888888')" class="w-full py-2 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-custom flex justify-between items-center">
+                            <span>复制微信：888888</span>
+                            <i class="fa fa-copy"></i>
+                        </button>
+                        <button onclick="openWechat()" class="w-full py-2 px-4 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-custom flex justify-center items-center gap-2">
+                            <i class="fa fa-weixin"></i>
+                            <span>打开微信</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- QQ -->
+                <div class="card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:shadow-xl transition-custom">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                            <img src="static/picture/QQ.png" alt="QQ Logo" class="w-8 h-8">
+                        </div>
+                        <h3 class="text-xl font-bold">客服QQ</h3>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="copyText('88888888')" class="w-full py-2 px-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-custom flex justify-between items-center">
+                            <span>复制QQ：88888888</span>
+                            <i class="fa fa-copy"></i>
+                        </button>
+                        <button onclick="openQQ('88888888')" class="w-full py-2 px-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-custom flex justify-center items-center gap-2">
+                            <i class="fa fa-qq"></i>
+                            <span>打开QQ</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="fixed bottom-0 left-0 right-0 py-4 text-center text-sm text-gray-600 dark:text-gray-300 backdrop-blur-md bg-white/70 dark:bg-gray-900/70">
+        <div class="container mx-auto">
+            <p>© 2023-2025 导航首页</p>
+            <p class="mt-1">Powered by <span class="text-primary">导航系统</span></p>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-20 right-6 w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:bg-primary/90 transition-custom opacity-0 invisible">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 示例网站数据
+        const websites = [
+            {
+                id: 1,
+                name: '阿乐源码网',
+                url: 'http://example.com',
+                icon: 'http://ale.leleyangyang.top:8991/wp-content/uploads/2022/06/1654508894-20b056292128543.png',
+                description: '优质源码分享平台'
+            },
+            {
+                id: 2,
+                name: '阿乐源码网1',
+                url: 'http://example.com/1',
+                icon: 'http://ale.leleyangyang.top:8991/wp-content/uploads/2022/06/1654508894-20b056292128543.png',
+                description: '源码下载中心'
+            },
+            {
+                id: 3,
+                name: '阿乐源码网2',
+                url: 'http://example.com/2',
+                icon: 'http://ale.leleyangyang.top:8991/wp-content/uploads/2022/06/1654508894-20b056292128543.png',
+                description: '技术交流社区'
+            }
+        ];
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            // 加载网站列表
+            loadWebsites();
+            
+            // 设置问候语
+            setGreeting();
+            
+            // 设置日期显示
+            updateDateDisplay();
+            
+            // 检测系统暗黑模式
+            checkDarkMode();
+            
+            // 初始化事件监听
+            initEventListeners();
+        });
+
+        // 加载网站列表
+        function loadWebsites() {
+            const websiteList = document.getElementById('website-list');
+            websiteList.innerHTML = '';
+            
+            websites.forEach(website => {
+                const card = document.createElement('div');
+                card.className = 'card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:shadow-xl transition-custom';
+                card.innerHTML = `
+                    <a href="${website.url}" target="_blank" class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700">
+                            <img src="${website.icon}" alt="${website.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-lg font-bold mb-1 truncate">${website.name}</h3>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm truncate">${website.description}</p>
+                        </div>
+                        <i class="fa fa-angle-right text-gray-400 mt-1"></i>
+                    </a>
+                `;
+                websiteList.appendChild(card);
+            });
+        }
+
+        // 设置问候语
+        function setGreeting() {
+            const greeting = document.getElementById('greeting');
+            const hour = new Date().getHours();
+            
+            if (hour < 6) {
+                greeting.textContent = '夜深了，注意休息';
+            } else if (hour < 12) {
+                greeting.textContent = '早上好，欢迎回来';
+            } else if (hour < 14) {
+                greeting.textContent = '中午好，开始工作';
+            } else if (hour < 18) {
+                greeting.textContent = '下午好，继续努力';
+            } else if (hour < 22) {
+                greeting.textContent = '晚上好，准备休息';
+            } else {
+                greeting.textContent = '夜深了，注意休息';
+            }
+        }
+
+        // 更新日期显示
+        function updateDateDisplay() {
+            const dateDisplay = document.getElementById('date-display');
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long'
+            };
+            dateDisplay.textContent = now.toLocaleDateString('zh-CN', options);
+        }
+
+        // 检测系统暗黑模式
+        function checkDarkMode() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        }
+
+        // 初始化事件监听
+        function initEventListeners() {
+            // 主题切换
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark');
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+            });
+
+            // 搜索框切换
+            const searchToggle = document.getElementById('search-toggle');
+            const searchContainer = document.getElementById('search-container');
+            searchToggle.addEventListener('click', function() {
+                searchContainer.classList.toggle('hidden');
+                if (!searchContainer.classList.contains('hidden')) {
+                    document.getElementById('search-input').focus();
+                }
+            });
+
+            // 点击页面其他地方关闭搜索框
+            document.addEventListener('click', function(event) {
+                if (!searchToggle.contains(event.target) && !searchContainer.contains(event.target) && !searchContainer.classList.contains('hidden')) {
+                    searchContainer.classList.add('hidden');
+                }
+            });
+
+            // 滚动监听
+            const backToTop = document.getElementById('back-to-top');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.remove('opacity-0', 'invisible');
+                    backToTop.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTop.classList.remove('opacity-100', 'visible');
+                    backToTop.classList.add('opacity-0', 'invisible');
+                }
+            });
+
+            // 返回顶部
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 搜索功能
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            
+            function handleSearch() {
+                const keyword = searchInput.value.trim();
+                if (keyword) {
+                    alert(`搜索关键词: ${keyword}`);
+                    // 这里可以添加实际的搜索逻辑
+                }
+            }
+
+            searchBtn.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+
+            // 监听系统主题变化
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                const savedTheme = localStorage.getItem('theme');
+                if (!savedTheme) {
+                    document.body.classList.toggle('dark', e.matches);
+                }
+            });
+        }
+
+        // 复制文本到剪贴板
+        function copyText(textToCopy) {
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    showToast(`已复制: ${textToCopy}`);
+                })
+                .catch(() => {
+                    // 降级方案
+                    const tempInput = document.createElement('input');
+                    tempInput.value = textToCopy;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    try {
+                        document.execCommand('copy');
+                        showToast(`已复制: ${textToCopy}`);
+                    } catch (err) {
+                        showToast('复制失败，请手动复制', true);
+                    } finally {
+                        document.body.removeChild(tempInput);
+                    }
+                });
+        }
+
+        // 打开微信
+        function openWechat() {
+            window.location.href = 'weixin://';
+            setTimeout(() => {
+                if (!document.hidden) {
+                    showToast('已尝试跳转到微信，请手动搜索微信号');
+                }
+            }, 500);
+        }
+
+        // 打开QQ
+        function openQQ(qqNumber) {
+            window.location.href = `tencent://message/?uin=${qqNumber}&Site=Q&Menu=yes`;
+            setTimeout(() => {
+                if (!document.hidden) {
+                    showToast('已尝试打开QQ，请手动搜索QQ号');
+                }
+            }, 500);
+        }
+
+        // 显示提示框
+        function showToast(message, isError = false) {
+            // 检查是否已存在toast，存在则移除
+            const existingToast = document.getElementById('toast-notification');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            // 创建新的toast
+            const toast = document.createElement('div');
+            toast.id = 'toast-notification';
+            toast.className = `fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg text-white font-medium shadow-lg z-50 transition-all duration-300 opacity-0`;
+            toast.style.backgroundColor = isError ? '#ef4444' : '#10b981';
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // 显示toast
+            setTimeout(() => {
+                toast.classList.add('opacity-100');
+            }, 10);
+            
+            // 3秒后隐藏toast
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
