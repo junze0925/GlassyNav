@@ -100,6 +100,32 @@
         body.dark .p-4.text-gray-500,
         body.dark .text-center.text-gray-500 {
             color: #9ca3af !important;
+        }/* === 🌙 管理后台整体内容区夜晚模式字体适配补丁 === */
+        /* 1. 修复分类名称、页面大标题（如：快速访问、网站链接管理） */
+        body.dark h1, body.dark h2, body.dark h3, body.dark h4 {
+            color: #f1f5f9 !important;
+        }
+        
+        /* 2. 修复设置页面里的文本标签（如：微信账号、默认主题、默认搜索引擎） */
+        body.dark .text-gray-700, body.dark .text-gray-800 {
+            color: #f1f5f9 !important;
+        }
+        
+        /* 3. 修复各种描述性/辅助提示文字（如：管理网站分类和链接、数据管理的副标题） */
+        body.dark .text-gray-500, body.dark .text-gray-600, body.dark .text-gray-400 {
+            color: #9ca3af !important;
+        }
+
+        /* 4. 修复设置页面的 label 和 下拉框文字无法看清的问题 */
+        body.dark label {
+            color: #f1f5f9 !important;
+        }
+        body.dark select {
+            color: #f1f5f9 !important;
+        }
+        body.dark select option {
+            color: #f1f5f9 !important;
+            background-color: #1f2937 !important; /* 下拉选项深色背景 */
         }
     </style>
 </head>
