@@ -69,15 +69,21 @@
             </div>
             <div class="flex items-center gap-4">
                 <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-custom">
-                    <i class="fa fa-moon-o dark:hidden text-xl"></i>
-                    <i class="fa fa-sun-o hidden dark:block text-xl"></i>
+                    <!-- 🌙 月亮图标：浅色显示，深色隐藏 -->
+                    <i class="fa fa-moon-o dark:hidden text-xl text-gray-800"></i>
+                    <!-- ☀️ 太阳图标：浅色隐藏，深色显示，并强制变白 -->
+                    <i class="fa fa-sun-o hidden dark:block text-xl text-gray-800 dark:text-white"></i>
                 </button>
+                
                 <button id="search-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-custom">
-                    <i class="fa fa-search text-xl"></i>
+                    <!-- 🔍 搜索图标：浅色深灰，深色强制变白 -->
+                    <i class="fa fa-search text-xl text-gray-800 dark:text-white"></i>
                 </button>
+                
                 <a href="admin.html" class="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-custom">
-                    <i class="fa fa-cog"></i>
-                    <span>管理</span>
+                    <!-- ⚙️ 管理图标和文字 -->
+                    <i class="fa fa-cog text-gray-800 dark:text-white"></i>
+                    <span class="text-gray-800 dark:text-white">管理</span>
                 </a>
             </div>
         </div>
