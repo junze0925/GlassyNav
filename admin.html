@@ -411,7 +411,6 @@
 
     <script>
         // 登录状态管理
-        let isLoggedIn = true;
         
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化数据
@@ -487,7 +486,7 @@
         // 检查登录状态
         function checkLoginStatus() {
             if (window.isLoggedIn()) {
-                isLoggedIn = true;
+                
                 showAdminPanel();
             } else {
                 showLoginForm();
@@ -822,7 +821,7 @@
         function logout() {
             if (confirm('确定要退出登录吗？')) {
                 setLoggedIn(false);
-                isLoggedIn = false;
+        
                 showLoginForm();
                 showToast('已退出登录');
             }
