@@ -30,25 +30,11 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
-            .backdrop-blur-md {
-                backdrop-filter: blur(12px);
-            }
-            .card-shadow {
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            }
-            .card-hover {
-                transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            }
-            .card-hover:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            }
-            .search-focus {
-                @apply ring-2 ring-primary ring-opacity-50;
-            }
+            .content-auto { content-visibility: auto; }
+            .backdrop-blur-md { backdrop-filter: blur(12px); }
+            .card-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+            .card-hover { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+            .card-hover:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
         }
     </style>
     <style>
@@ -57,45 +43,20 @@
             transition: background 0.5s ease;
             min-height: 100vh;
         }
-        
-        /* 夜晚模式蒙版 */
         body.dark::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
-        
-        /* 卡片悬停效果 */
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-        }/* === 🟢 新增：夜晚模式字体自动适配补丁 🟢 === */
-        body.dark .text-gray-800,
-        body.dark .text-gray-900,
-        body.dark .text-gray-700,
-        body.dark h1, body.dark h2, body.dark h3, body.dark h4 {
-            color: #f1f5f9 !important;  /* 浅白灰色 */
-        }
-        
-        body.dark .text-gray-500,
-        body.dark .text-gray-600 {
-            color: #cbd5e1 !important;  /* 较浅的灰色，用于副标题 */
-        }
-        
-        /* 确保联系信息区域在暗模式下的文字为白色 */
-        body.dark .bg-white\/80,
-        body.dark .bg-white\/90 {
-            color: #f1f5f9 !important;
-        }
-        /* === 补丁结束 === */
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); }
+        /* 夜晚模式字体适配 */
+        body.dark .text-gray-800, body.dark .text-gray-900, body.dark .text-gray-700,
+        body.dark h1, body.dark h2, body.dark h3, body.dark h4 { color: #f1f5f9 !important; }
+        body.dark .text-gray-500, body.dark .text-gray-600 { color: #cbd5e1 !important; }
+        body.dark .bg-white\/80, body.dark .bg-white\/90 { color: #f1f5f9 !important; }
     </style>
 </head>
 <body class="relative font-sans text-gray-800 dark:text-white transition-custom">
@@ -140,71 +101,15 @@
             <p class="text-lg text-gray-600 dark:text-gray-300" id="date-display">2023年1月1日 星期日</p>
         </div>
 
-        <!-- 快速访问 -->
-        <div class="mb-10">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold">快速访问</h2>
-                <a href="admin.html" class="text-primary hover:text-primary/80 transition-custom flex items-center gap-1 cursor-pointer">
-    <span>查看全部</span>
-    <i class="fa fa-angle-right"></i>
-</a>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
-                    <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mb-3">
-                        <i class="fa fa-google text-blue-500 text-xl"></i>
-                    </div>
-                    <span class="text-sm font-medium">Google</span>
-                </div>
-                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
-                    <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center mb-3">
-                        <i class="fa fa-youtube-play text-red-500 text-xl"></i>
-                    </div>
-                    <span class="text-sm font-medium">YouTube</span>
-                </div>
-                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
-                    <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mb-3">
-                        <i class="fa fa-weixin text-green-500 text-xl"></i>
-                    </div>
-                    <span class="text-sm font-medium">微信</span>
-                </div>
-                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
-                    <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mb-3">
-                        <i class="fa fa-github text-purple-500 text-xl"></i>
-                    </div>
-                    <span class="text-sm font-medium">GitHub</span>
-                </div>
-                <div class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom">
-                    <div class="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center mb-3">
-                        <i class="fa fa-qq text-orange-500 text-xl"></i>
-                    </div>
-                    <span class="text-sm font-medium">QQ</span>
-                </div>
-                <a href="admin.html" class="quick-access-item card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl transition-custom cursor-pointer">
-    <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-3">
-        <i class="fa fa-plus text-gray-500 text-xl"></i>
-    </div>
-    <span class="text-sm font-medium">添加</span>
-</a>
-            </div>
-        </div>
-
-        <!-- 网站分类 -->
-        <div class="mb-10">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold">常用网站</h2>
-                <a href="admin.html" class="text-primary hover:text-primary/80 transition-custom flex items-center gap-1 cursor-pointer">
-    <span>管理</span>
-    <i class="fa fa-pencil"></i>
-</a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="website-list">
-                <!-- 网站卡片将通过JavaScript动态生成 -->
-            </div>
+        <!-- ================================================== -->
+        <!-- 🟢 核心改变：所有分类（快速访问、常用网站等）动态渲染 -->
+        <!-- ================================================== -->
+        <div id="categories-container" class="space-y-10">
+            <!-- 所有分类将由 JavaScript 自动生成并插入到这里 -->
         </div>
 
         <!-- 联系信息 -->
-        <div class="mb-10">
+        <div class="mt-12">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold">联系我们</h2>
             </div>
@@ -228,7 +133,6 @@
                         </button>
                     </div>
                 </div>
-                
                 <!-- QQ -->
                 <div class="card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:shadow-xl transition-custom">
                     <div class="flex items-center gap-4 mb-4">
@@ -266,125 +170,122 @@
     </button>
 
     <script>
-        // 示例网站数据
-        const websites = [
-            {
-                id: 1,
-                name: '阿乐源码网',
-                url: 'http://example.com',
-                icon: 'http://ale.leleyangyang.top:8991/wp-content/uploads/2022/06/1654508894-20b056292128543.png',
-                description: '优质源码分享平台'
-            },
-            {
-                id: 2,
-                name: '阿乐源码网1',
-                url: 'http://example.com/1',
-                icon: 'http://ale.leleyangyang.top:8991/wp-content/uploads/2022/06/1654508894-20b056292128543.png',
-                description: '源码下载中心'
-            },
-            {
-                id: 3,
-                name: '阿乐源码网2',
-                url: 'http://example.com/2',
-                icon: 'http://ale.leleyangyang.top:8991/wp-content/uploads/2022/06/1654508894-20b056292128543.png',
-                description: '技术交流社区'
-            }
-        ];
-
         // 初始化页面
         document.addEventListener('DOMContentLoaded', function() {
-            // 加载网站列表
-            loadWebsites();
+            // 加载动态分类列表
+            renderCategories();
             
-            // 设置问候语
             setGreeting();
-            
-            // 设置日期显示
             updateDateDisplay();
-            
-            // 检测系统暗黑模式
             checkDarkMode();
-            
-            // 初始化事件监听
             initEventListeners();
         });
 
-        // 加载网站列表
-        // 加载网站列表（从后台 localStorage 读取）
-function loadWebsites() {
-    const websiteList = document.getElementById('website-list');
-    websiteList.innerHTML = '';
-    
-    // 1. 调用 data.js 里的方法，获取后台的所有分类及链接
-    const categories = getCategories();
-    
-    if (categories.length === 0) {
-        websiteList.innerHTML = `<div class="col-span-full text-center text-gray-500 dark:text-gray-400 py-8">暂无链接，请前往后台添加</div>`;
-        return;
-    }
+        // 🟢 核心渲染函数：将所有分类动态输出到页面
+        function renderCategories() {
+            const container = document.getElementById('categories-container');
+            container.innerHTML = '';
+            const categories = getCategories();
 
-    // 2. 遍历所有分类和链接，渲染出卡片
-    categories.forEach(category => {
-        if (category.links && category.links.length > 0) {
-            category.links.forEach(link => {
-                const card = document.createElement('div');
-                card.className = 'card-hover bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:shadow-xl transition-custom';
-                card.innerHTML = `
-                    <a href="${link.url}" target="_blank" class="flex items-start gap-4">
-                        <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700">
-                            <img src="${link.favicon || 'static/image/default.png'}" alt="${link.name}" class="w-full h-full object-cover" onerror="this.src='static/image/default.png'">
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="text-lg font-bold mb-1 truncate">${link.name}</h3>
-                            <!-- 这里用分类名称作为副标题 -->
-                            <p class="text-gray-600 dark:text-gray-300 text-sm truncate">${category.name}</p>
-                        </div>
-                        <i class="fa fa-angle-right text-gray-400 mt-1"></i>
+            if (!categories || categories.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-500 dark:text-gray-400 py-10">暂无分类，请前往后台添加</div>`;
+                return;
+            }
+
+            categories.forEach(category => {
+                const section = document.createElement('div');
+                section.className = 'mb-10';
+
+                // 1. 分类标题栏 + 右侧统一【管理】按钮
+                const header = document.createElement('div');
+                header.className = 'flex justify-between items-center mb-4';
+                header.innerHTML = `
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        <i class="fa ${category.icon || 'fa-folder'} text-primary"></i>
+                        ${category.name}
+                    </h2>
+                    <a href="admin.html" class="text-primary hover:text-primary/80 transition-custom flex items-center gap-1 cursor-pointer">
+                        <span>管理</span>
+                        <i class="fa fa-angle-right"></i>
                     </a>
                 `;
-                websiteList.appendChild(card);
+                section.appendChild(header);
+
+                const grid = document.createElement('div');
+                const isQuickAccess = category.name === '快速访问';
+
+                // 2. 判断使用“快速访问”的小圆卡片布局，还是“常规分类”的大方块布局
+                if (isQuickAccess) {
+                    grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4';
+                } else {
+                    grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
+                }
+
+                // 3. 渲染链接
+                if (!category.links || category.links.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full text-center text-gray-500 dark:text-gray-400 py-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl">暂无链接，点击右上角「管理」前往后台添加</div>`;
+                } else {
+                    category.links.forEach(link => {
+                        const item = document.createElement('a');
+                        item.href = link.url;
+                        item.target = '_blank';
+                        item.className = 'card-hover cursor-pointer transition-custom';
+
+                        if (isQuickAccess) {
+                            // 快速访问：FontAwesome 图标（如果后台没有指定 icon，默认显示 fa-link）
+                            item.className += ' bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl';
+                            item.innerHTML = `
+                                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-3 text-primary text-xl">
+                                    <i class="fa ${link.icon || 'fa-link'}"></i>
+                                </div>
+                                <span class="text-sm font-medium">${link.name}</span>
+                            `;
+                        } else {
+                            // 常规分类：图标 URL / Favicon
+                            item.className += ' bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:shadow-xl flex items-start gap-4';
+                            const favicon = link.favicon || 'static/image/default.png';
+                            item.innerHTML = `
+                                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 flex-shrink-0">
+                                    <img src="${favicon}" alt="${link.name}" class="w-full h-full object-cover" onerror="this.src='static/image/default.png'">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="text-lg font-bold mb-1 truncate">${link.name}</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm truncate">${category.name}</p>
+                                </div>
+                                <i class="fa fa-angle-right text-gray-400 mt-1 flex-shrink-0"></i>
+                            `;
+                        }
+                        grid.appendChild(item);
+                    });
+                }
+                section.appendChild(grid);
+                container.appendChild(section);
             });
         }
-    });
-}
+
         // 设置问候语
         function setGreeting() {
             const greeting = document.getElementById('greeting');
             const hour = new Date().getHours();
-            
-            if (hour < 6) {
-                greeting.textContent = '夜深了，注意休息';
-            } else if (hour < 12) {
-                greeting.textContent = '早上好，欢迎回来';
-            } else if (hour < 14) {
-                greeting.textContent = '中午好，开始工作';
-            } else if (hour < 18) {
-                greeting.textContent = '下午好，继续努力';
-            } else if (hour < 22) {
-                greeting.textContent = '晚上好，准备休息';
-            } else {
-                greeting.textContent = '夜深了，注意休息';
-            }
+            if (hour < 6) { greeting.textContent = '夜深了，注意休息'; 
+            } else if (hour < 12) { greeting.textContent = '早上好，欢迎回来'; 
+            } else if (hour < 14) { greeting.textContent = '中午好，开始工作'; 
+            } else if (hour < 18) { greeting.textContent = '下午好，继续努力'; 
+            } else if (hour < 22) { greeting.textContent = '晚上好，准备休息'; 
+            } else { greeting.textContent = '夜深了，注意休息'; }
         }
 
         // 更新日期显示
         function updateDateDisplay() {
             const dateDisplay = document.getElementById('date-display');
             const now = new Date();
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                weekday: 'long'
-            };
-            dateDisplay.textContent = now.toLocaleDateString('zh-CN', options);
+            dateDisplay.textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
         }
 
         // 检测系统暗黑模式
         function checkDarkMode() {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('theme');
-            
             if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
                 document.body.classList.add('dark');
             } else {
@@ -394,31 +295,25 @@ function loadWebsites() {
 
         // 初始化事件监听
         function initEventListeners() {
-            // 主题切换
             const themeToggle = document.getElementById('theme-toggle');
             themeToggle.addEventListener('click', function() {
                 document.body.classList.toggle('dark');
                 localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
             });
 
-            // 搜索框切换
             const searchToggle = document.getElementById('search-toggle');
             const searchContainer = document.getElementById('search-container');
             searchToggle.addEventListener('click', function() {
                 searchContainer.classList.toggle('hidden');
-                if (!searchContainer.classList.contains('hidden')) {
-                    document.getElementById('search-input').focus();
-                }
+                if (!searchContainer.classList.contains('hidden')) document.getElementById('search-input').focus();
             });
 
-            // 点击页面其他地方关闭搜索框
             document.addEventListener('click', function(event) {
                 if (!searchToggle.contains(event.target) && !searchContainer.contains(event.target) && !searchContainer.classList.contains('hidden')) {
                     searchContainer.classList.add('hidden');
                 }
             });
 
-            // 滚动监听
             const backToTop = document.getElementById('back-to-top');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 300) {
@@ -429,115 +324,47 @@ function loadWebsites() {
                     backToTop.classList.add('opacity-0', 'invisible');
                 }
             });
+            backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-            // 返回顶部
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-
-            // 搜索功能
             const searchInput = document.getElementById('search-input');
             const searchBtn = document.getElementById('search-btn');
-            
             function handleSearch() {
                 const keyword = searchInput.value.trim();
-                if (keyword) {
-                    alert(`搜索关键词: ${keyword}`);
-                    // 这里可以添加实际的搜索逻辑
-                }
+                if (keyword) alert(`搜索关键词: ${keyword}`);
             }
-
             searchBtn.addEventListener('click', handleSearch);
-            searchInput.addEventListener('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    handleSearch();
-                }
-            });
+            searchInput.addEventListener('keypress', function(event) { if (event.key === 'Enter') handleSearch(); });
 
-            // 监听系统主题变化
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
                 const savedTheme = localStorage.getItem('theme');
-                if (!savedTheme) {
-                    document.body.classList.toggle('dark', e.matches);
-                }
+                if (!savedTheme) document.body.classList.toggle('dark', e.matches);
             });
         }
 
-        // 复制文本到剪贴板
         function copyText(textToCopy) {
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    showToast(`已复制: ${textToCopy}`);
-                })
-                .catch(() => {
-                    // 降级方案
-                    const tempInput = document.createElement('input');
-                    tempInput.value = textToCopy;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    try {
-                        document.execCommand('copy');
-                        showToast(`已复制: ${textToCopy}`);
-                    } catch (err) {
-                        showToast('复制失败，请手动复制', true);
-                    } finally {
-                        document.body.removeChild(tempInput);
-                    }
-                });
+            navigator.clipboard.writeText(textToCopy).then(() => showToast(`已复制: ${textToCopy}`)).catch(() => {
+                const tempInput = document.createElement('input');
+                tempInput.value = textToCopy; document.body.appendChild(tempInput);
+                tempInput.select();
+                try { document.execCommand('copy'); showToast(`已复制: ${textToCopy}`); } catch (err) { showToast('复制失败，请手动复制', true); } 
+                finally { document.body.removeChild(tempInput); }
+            });
         }
 
-        // 打开微信
-        function openWechat() {
-            window.location.href = 'weixin://';
-            setTimeout(() => {
-                if (!document.hidden) {
-                    showToast('已尝试跳转到微信，请手动搜索微信号');
-                }
-            }, 500);
-        }
+        function openWechat() { window.location.href = 'weixin://'; setTimeout(() => { if (!document.hidden) showToast('已尝试跳转到微信，请手动搜索微信号'); }, 500); }
+        function openQQ(qqNumber) { window.location.href = `tencent://message/?uin=${qqNumber}&Site=Q&Menu=yes`; setTimeout(() => { if (!document.hidden) showToast('已尝试打开QQ，请手动搜索QQ号'); }, 500); }
 
-        // 打开QQ
-        function openQQ(qqNumber) {
-            window.location.href = `tencent://message/?uin=${qqNumber}&Site=Q&Menu=yes`;
-            setTimeout(() => {
-                if (!document.hidden) {
-                    showToast('已尝试打开QQ，请手动搜索QQ号');
-                }
-            }, 500);
-        }
-
-        // 显示提示框
         function showToast(message, isError = false) {
-            // 检查是否已存在toast，存在则移除
             const existingToast = document.getElementById('toast-notification');
-            if (existingToast) {
-                existingToast.remove();
-            }
-
-            // 创建新的toast
+            if (existingToast) existingToast.remove();
             const toast = document.createElement('div');
             toast.id = 'toast-notification';
             toast.className = `fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg text-white font-medium shadow-lg z-50 transition-all duration-300 opacity-0`;
             toast.style.backgroundColor = isError ? '#ef4444' : '#10b981';
             toast.textContent = message;
-            
             document.body.appendChild(toast);
-            
-            // 显示toast
-            setTimeout(() => {
-                toast.classList.add('opacity-100');
-            }, 10);
-            
-            // 3秒后隐藏toast
-            setTimeout(() => {
-                toast.classList.remove('opacity-100');
-                setTimeout(() => {
-                    toast.remove();
-                }, 300);
-            }, 3000);
+            setTimeout(() => { toast.classList.add('opacity-100'); }, 10);
+            setTimeout(() => { toast.classList.remove('opacity-100'); setTimeout(() => { toast.remove(); }, 300); }, 3000);
         }
     </script>
 </body>
