@@ -79,6 +79,27 @@
         }
         body.dark nav .group i {
             color: #f1f5f9 !important;
+        }/* === 🌙 管理后台核心区域夜晚模式字体适配补丁 === */
+        /* 1. 修复分类的计数 (如: (4个链接)) */
+        body.dark .text-gray-500, 
+        body.dark .text-gray-400,
+        body.dark .text-gray-600 {
+            color: #9ca3af !important; /* 浅灰色，保证清晰可见 */
+        }
+
+        /* 2. 修复链接列表里的名称和地址 */
+        body.dark .links-container .font-medium {
+            color: #f3f4f6 !important; /* 偏白色，高亮 */
+        }
+        body.dark .links-container .text-gray-500,
+        body.dark .links-container .text-gray-600 {
+            color: #9ca3af !important; /* 确保里面的 URL 或副标题清晰 */
+        }
+
+        /* 3. 修复“暂无链接”的提示文字 */
+        body.dark .p-4.text-gray-500,
+        body.dark .text-center.text-gray-500 {
+            color: #9ca3af !important;
         }
     </style>
 </head>
