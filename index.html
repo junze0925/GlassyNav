@@ -41,6 +41,31 @@ body.dark .backdrop-blur-md {
             .card-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
             .card-hover { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
             .card-hover:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        /* === 🪟 半透明毛玻璃卡片（针对链接卡片） === */
+        .card-hover {
+            /* 白天模式：调整为 45% 不透明度，真正半透明 */
+            background-color: rgba(255, 255, 255, 0.45) !important;
+            /* 增加模糊值，显得更透亮 */
+            backdrop-filter: blur(8px) !important;
+            /* 增加一条高光白边框，模仿真实毛玻璃的质感 */
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+        }
+
+        /* 夜晚模式 */
+        body.dark .card-hover {
+            /* 夜晚模式：调整为 35% 不透明度，透出深色背景 */
+            background-color: rgba(31, 41, 55, 0.35) !important;
+            /* 夜晚模式的玻璃边框淡一些 */
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        
+        /* 顺便优化一下那个“暂无链接”的提示条，让它也变成半透明 */
+        .bg-gray-50 {
+            background-color: rgba(249, 250, 251, 0.55) !important;
+        }
+        body.dark .bg-gray-50 {
+            background-color: rgba(31, 41, 55, 0.3) !important;
+        }
         }
     </style>
     <style>
