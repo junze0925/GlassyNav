@@ -31,7 +31,13 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .content-auto { content-visibility: auto; }
-            .backdrop-blur-md { backdrop-filter: blur(6px); }
+            .backdrop-blur-md {
+    backdrop-filter: blur(4px); /* 降低模糊 */
+    background-color: rgba(255, 255, 255, 0.85) !important; /* 提高不透明度 */
+}
+body.dark .backdrop-blur-md {
+    background-color: rgba(31, 41, 55, 0.85) !important; /* 夜晚模式下同步提高不透明度 */
+}
             .card-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
             .card-hover { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
             .card-hover:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
